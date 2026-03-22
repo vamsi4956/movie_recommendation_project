@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Movie Recommendation System</title>
+
+<style>
+
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* Body */
+body{
+    font-family:'Segoe UI', sans-serif;
+    color:white;
+}
+
+/* HOME PAGE BACKGROUND */
+.home-page{
+    background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)),
+        url("/static/image.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* RESULTS PAGE */
+.results-page{
+    background:#141414;
+}
+
+/* Title */
+h1{
+    text-align:center;
+    margin-top:30px;
+    margin-bottom:20px;
+    font-size:32px;
+}
+
+/* Form */
+form{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+/* Input */
+input{
+    padding:12px;
+    width:400px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:black;
+}
+
+/* Button */
+button{
+    padding:12px 20px;
+    background:#e50914;
+    border:none;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+/* GRID FIXED SIZE */
+.results{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, 180px);
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+}
+
+/* Movie (NO CARD STYLE) */
+.movie{
+    text-align:center;
+    transition:0.3s;
+}
+
+/* Image FIXED SIZE */
+.movie img{
+    width:180px;
+    height:260px;
+    object-fit:cover;
+    border-radius:6px;
+}
+
+/* Hover */
+.movie:hover{
+    transform:scale(1.05);
+}
+
+/* Title */
+.title{
+    margin-top:8px;
+    font-size:14px;
+    color:#ddd;
+}
+
+</style>
+
+</head>
+
+<body class="{% if recs %}results-page{% else %}home-page{% endif %}">
+
+<h1>🎬 Movie Recommendation System</h1>
+
+<form method="POST">
+<input
+type="text"
+name="watched"
+placeholder="Enter movies (Avatar, Titanic...)"
+required>
+
+<button type="submit">Recommend</button>
+</form>
+
+{% if recs %}
+
+<div class="results">
+
+{% for r in recs %}
+
+<div class="movie">
+    <img src="{{r.poster}}" alt="movie">
+    <div class="title">{{r.title}}</div>
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+</body>
+</html>
